@@ -102,6 +102,15 @@ describe 'API keys', :maintainers_only => true do
     wait_key_missing(@index, newIndexKey['key'])
     resIndexEnd = @index.list_api_keys
     is_include(resIndexEnd['keys'], 'value', newIndexKey['key']).should eq(false)
+
+    # Restore the deleted key
+    @index.restore_api_key(newIndexKey['key'])
+    wait_key(@index, newIndexKey['key'])
+    resIndexEnd = @index.list_api_keys
+    is_include(resIndexEnd['keys'], 'value', newIndexKey['key']).should eq(true)
+
+    # Re-delete the key
+    @index.delete_api_key(newIndexKey['key'])
   end
 
   it "should test global keys" do

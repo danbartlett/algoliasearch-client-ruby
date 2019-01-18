@@ -113,6 +113,10 @@ module Algolia
       "#{index_uri(index)}/keys/#{key}"
     end
 
+    def Protocol.restore_key_uri(index, key)
+      "#{index_uri(index)}/keys/#{key}/restore"
+    end
+
     def Protocol.index_keys_uri(index)
       "#{index_uri(index)}/keys"
     end
